@@ -98,7 +98,7 @@ vcloud.wait_task_completion(vapp[:task_id])
 
 config =  {
   :name => "CI",
-  :fence_mode => "natRouted",
+  :fence_mode => "bridged",
   :parent_network =>  {
     :id => networks['CI'] },
   :ip_allocation_mode => "POOL" }
