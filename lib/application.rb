@@ -4,7 +4,7 @@ require 'yaml'
 require 'trollop'
 
 # Template name for testing
-#  'DVLA_Skyscape_CentOS_6_4_x64_50GB_Tiny_v1.0.1_vanilla'
+#  'CI-TEST'
 #
 #ENV['VCLOUD_REST_DEBUG_LEVEL'] = "DEBUG"
 cmdline_args = Trollop::options do
@@ -17,9 +17,9 @@ cmdline_args.each do |key, value|
   Trollop::die key, "is required"  if value.nil?
 end
 
-# load up the credentials from ~/.dvlacloud.yaml
-credentials = YAML.load_file("#{ENV['HOME']}/.dvlacloud.yaml")
-# Example yaml contents for the credentials ~/.dvlacloud.yaml file
+# load up the credentials from ~/.vcloud-credentials.yaml
+credentials = YAML.load_file("#{ENV['HOME']}/.vcloud-credentials.yaml")
+# Example yaml contents for the credentials ~/.vcloud-credentials.yaml file
 # ---
 #host: 'https://api.vcd.portal.cloud.com'
 #user: '999.88.AA00d2'
@@ -98,7 +98,7 @@ vcloud.wait_task_completion(vapp[:task_id])
 
 config =  {
   :name => "CI",
-  :fence_mode => "natRouted",
+  :fence_mode => "bridged",
   :parent_network =>  {
     :id => networks['CI'] },
   :ip_allocation_mode => "POOL" }
